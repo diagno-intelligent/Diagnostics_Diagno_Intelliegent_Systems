@@ -182,7 +182,7 @@ def ens():
     predicted_value1 = loaded_model.predict(X_stack)
     #print('predicted_value1',predicted_value1)
     probabilities = loaded_model.predict_proba(X_stack)[0]
-    #print('probabilities',probabilities)
+    print('probabilities',probabilities)
     #### for single prediction
     predicted_value1 = int(loaded_model.predict(X_stack)[0])
     #print('predicted_value1',predicted_value1)
