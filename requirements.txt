@@ -3,8 +3,9 @@ opencv-python-headless==4.5.3.56
 matplotlib==3.5.3
 tensorflow-gpu==2.9.0
 numpy==1.26.4
-torch==2.6
-ultralytics
+torch==2.1.2
+torchvision==0.16.2
+ultralytics==8.0.208
 joblib
 pydicom
 scikit-learn==0.24.2
