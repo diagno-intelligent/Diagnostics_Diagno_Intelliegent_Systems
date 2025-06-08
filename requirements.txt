@@ -7,3 +7,5 @@ torch==2.6
 ultralytics
 joblib
 pydicom
+scikit-learn
+xgboost
