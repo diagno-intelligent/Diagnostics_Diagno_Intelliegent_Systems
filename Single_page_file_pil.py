@@ -1067,7 +1067,7 @@ with col2:
             from ultralytics import YOLO
 
             # Load model
-            model = YOLO("./my_yv10_5m/weights/best.pt")
+            model = YOLO("./best.pt")
             # Run inference
             results = model.predict(
                 source="./images/input.png",
