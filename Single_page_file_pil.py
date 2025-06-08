@@ -1056,10 +1056,10 @@ with col2:
             from ultralytics.nn.tasks import DetectionModel
 
             # Allow YOLO custom modules (required by PyTorch 2.6+)
-            torch.serialization.add_safe_globals([
-                Conv,
-                DetectionModel
-            ])
+            # torch.serialization.add_safe_globals([
+            #     Conv,
+            #     DetectionModel
+            # ])
 
             # Import the YOLO model class
             # from yolov10.ultralytics.models.yolo import YOLO
