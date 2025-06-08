@@ -1200,8 +1200,8 @@ with col2:
 
             image_pil = Image.open("./images/input.png").convert("RGB")
             draw = ImageDraw.Draw(image_pil)
-            font = ImageFont.load_default()
-            font_path = "fonts/arial.ttf"  # or "./fonts/arial.ttf"
+            #font = ImageFont.load_default()
+            font_path = "./arial.ttf"  
             font = ImageFont.truetype(font_path, size=50)
             for i in keep:
                 x1, y1, x2, y2 = boxes_list[i]
