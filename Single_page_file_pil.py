@@ -1201,10 +1201,8 @@ with col2:
             image_pil = Image.open("./images/input.png").convert("RGB")
             draw = ImageDraw.Draw(image_pil)
             font = ImageFont.load_default()
-            try:
-                font = ImageFont.truetype("arial.ttf", size=50)  # Increase size as needed
-            except IOError:
-                font = ImageFont.load_default()
+            font_path = "fonts/arial.ttf"  # or "./fonts/arial.ttf"
+            font = ImageFont.truetype(font_path, size=50)
             for i in keep:
                 x1, y1, x2, y2 = boxes_list[i]
                 label = result.names[class_ids[i]] if hasattr(result, 'names') else str(class_ids[i])
