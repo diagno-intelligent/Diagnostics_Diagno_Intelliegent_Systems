@@ -1052,8 +1052,8 @@ with col2:
 
             #####
             import torch
-            from ultralytics.nn.modules.conv import Conv
-            from ultralytics.nn.tasks import DetectionModel
+            #from ultralytics.nn.modules.conv import Conv
+            #from ultralytics.nn.tasks import DetectionModel
 
             # Allow YOLO custom modules (required by PyTorch 2.6+)
             # torch.serialization.add_safe_globals([
