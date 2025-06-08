@@ -1133,61 +1133,88 @@ with col2:
                 Risk_level = "High"
             imp = ""
             if predicted_value1 == 0:
-                imp = " The Patient may have COPD"
+                imp = "AI prediction suggests the patient may have COPD"
             if predicted_value1 == 1:
-                imp = " The Patient may have Lung Cancer"
+                imp = " AI prediction suggests the patient may have Lung Cancer"
             if predicted_value1 == 2:
-                imp = " The Patient may have Normal"
+                imp = " AI prediction suggest the Patient is Normal"
             if predicted_value1 == 3:
-                imp = " The Patient may have TB"
+                imp = " AI prediction suggests the patient may have TB"
             if predicted_value1 == 4:
-                imp = " The Patient may have Silicosis"
+                imp = " AI prediction suggests the patient may have Silicosis"
 
             #### change bounding box as per ML
 
             # Define fixed label and prepare colors
             label = str(Final_prediction)
             color_list = []
+            import numpy as np
 
-            # # Draw bounding boxes
-            # for result in results:
-            #     boxes = result.boxes
-            #     for i, box in enumerate(boxes):
-            #         score = float(box.conf.item())
-            #         xyxy = box.xyxy[0].tolist()
-            #         x1, y1, x2, y2 = map(int, xyxy)
-            #
-            #         # Generate a random color for this box
-            #         color = tuple(random.randint(0, 255) for _ in range(3))
-            #         color_list.append(color)
-            #
-            #         # Draw the box
-            #         cv2.rectangle(resized_image, (x1, y1), (x2, y2), color, 2)
-            #         cv2.putText(resized_image, f"{label} {score:.2f}", (x1, y1 - 10),
-            #                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
-            #
-            # # Save image
-            # cv2.imwrite("result.jpg", resized_image)
-            # Open input image using PIL
+            boxes_list = []
+            confidences = []
+            class_ids = []
+
+            for result in results:
+                for box in result.boxes:
+                    x1, y1, x2, y2 = box.xyxy[0].tolist()
+                    score = float(box.conf.item())
+                    cls_id = int(box.cls.item())
+
+                    boxes_list.append([x1, y1, x2, y2])
+                    confidences.append(score)
+                    class_ids.append(cls_id)
+
+            boxes_np = np.array(boxes_list)
+            scores_np = np.array(confidences)
+
+
+            def nms(boxes, scores, iou_threshold=0.45):
+                indices = []
+                boxes = boxes.astype(float)
+                areas = (boxes[:, 2] - boxes[:, 0]) * (boxes[:, 3] - boxes[:, 1])
+                order = scores.argsort()[::-1]
+
+                while order.size > 0:
+                    i = order[0]
+                    indices.append(i)
+
+                    xx1 = np.maximum(boxes[i, 0], boxes[order[1:], 0])
+                    yy1 = np.maximum(boxes[i, 1], boxes[order[1:], 1])
+                    xx2 = np.minimum(boxes[i, 2], boxes[order[1:], 2])
+                    yy2 = np.minimum(boxes[i, 3], boxes[order[1:], 3])
+
+                    w = np.maximum(0.0, xx2 - xx1)
+                    h = np.maximum(0.0, yy2 - yy1)
+                    inter = w * h
+                    iou = inter / (areas[i] + areas[order[1:]] - inter)
+
+                    keep_mask = iou <= iou_threshold
+                    order = order[1:][keep_mask]
+
+                return indices
+
+
+            keep = nms(boxes_np, scores_np, iou_threshold=0.45)
+            from PIL import Image, ImageDraw, ImageFont
+            import random
+
             image_pil = Image.open("./images/input.png").convert("RGB")
             draw = ImageDraw.Draw(image_pil)
             font = ImageFont.load_default()
-
-            # Draw NMS-filtered boxes
+            try:
+                font = ImageFont.truetype("arial.ttf", size=50)  # Increase size as needed
+            except IOError:
+                font = ImageFont.load_default()
             for i in keep:
-                x, y, w, h = boxes_list[i]
-                x2, y2 = x + w, y + h
+                x1, y1, x2, y2 = boxes_list[i]
                 label = result.names[class_ids[i]] if hasattr(result, 'names') else str(class_ids[i])
                 score = confidences[i]
                 color = tuple(random.randint(0, 255) for _ in range(3))
-                draw.rectangle([x, y, x2, y2], outline=color, width=2)
-                draw.text((x, max(0, y - 12)), f"{label} {score:.2f}", fill=color, font=font)
 
-            # Save final image
+                draw.rectangle([x1, y1, x2, y2], outline=color, width=2)
+                draw.text((x1, max(0, y1 - 12)), f"{label} {score:.2f}", fill=color, font=font)
+
             image_pil.save("result.jpg")
-            print("Saved result.jpg with boxes drawn using PIL")
-
-            print("Saved image with colorful boxes and label  → result.jpg")
 
             """ predictions yoloV10 """
             Predicted_class_DL = max_label  # class
@@ -1205,8 +1232,8 @@ with col2:
             Patient_Sex = "NA"
 
             end_time = time.time()
-            print(f"⏱️ Processing time: {end_time - start_time:.4f} seconds")
-            processing_time=f"{end_time - start_time:.4f} "
+            print(f"⏱️ Processing time: {end_time - start_time:.2f} seconds")
+            processing_time=f"{end_time - start_time:.2f} "
             ##############################################################################
 
             # Simulate processing completion with enhanced results
@@ -1227,7 +1254,7 @@ with col2:
             # Display enhanced result with better placeholder
             #st.markdown('<div class="image-container">', unsafe_allow_html=True)
             #img = Image.open("result.jpg")
-            st.image("F:/project/result.jpg",caption="🤖 AI Analysis Visualization", use_container_width=True)
+            st.image("result.jpg",caption="🤖 AI Analysis Visualization", use_container_width=True)
             #st.image("result.jpg",
                      #caption="🤖 AI Analysis Visualization", use_container_width=True)
             st.markdown('</div>', unsafe_allow_html=True)
@@ -1260,12 +1287,13 @@ PULMOVISTA DIAGNOSTIC REPORT
 PATIENT INFORMATION
 Patient ID: {st.session_state.report_data['patient_id']}
 Analysis Date: {st.session_state.report_data['date']}
-# AI Model: {st.session_state.report_data['ai_model']}
-#ANALYSIS RESULTS
+AI Model: {st.session_state.report_data['ai_model']}
+
+ANALYSIS RESULTS
 Finding : {st.session_state.report_data['findings']}
 Confidence Score: {st.session_state.report_data['confidence']}
-#Processing Time: {st.session_state.report_data['processing_time']}
-#Risk Assessment: {st.session_state.report_data['risk_score']}
+Processing Time: {st.session_state.report_data['processing_time']}
+Risk Assessment: {st.session_state.report_data['risk_score']}
 
 #CLINICAL IMPRESSION  
 Clinical Impression: {st.session_state.report_data['impression']}
@@ -1276,7 +1304,7 @@ IMPORTANT DISCLAIMERS
 - Not intended as a substitute for professional medical diagnosis
 - For research and educational purposes
 
-Generated by PulmoVista AI Medical Imaging System
+Generated by PulmoVista v1.0, Diagno Intelligent Systems Private Limited
 Report ID: {st.session_state.report_data['patient_id']}-{datetime.now().strftime('%H%M%S')}
                     """
                     st.download_button(
@@ -1306,7 +1334,7 @@ if st.session_state.show_report and st.session_state.report_data:
 
         with col_r1:
             st.markdown(f"""
-            <div class="metric-card">
+            <div class="metric-card" >
                 <h3>👤 Patient Information</h3>
                 <p><strong>ID:</strong> {st.session_state.report_data['patient_id']}</p>
                 <p><strong>Date:</strong> {st.session_state.report_data['date']}</p>
@@ -1318,10 +1346,10 @@ if st.session_state.show_report and st.session_state.report_data:
             st.markdown(f"""
             <div class="metric-card">
                 <h3>📊 Analysis Metrics</h3>
-                <p><strong>Finding:</strong> {st.session_state.report_data['findings']}</p>
-                <p><strong>Confidence:</strong> {st.session_state.report_data['confidence']}</p>
+                <p><strong>Findings:</strong> {st.session_state.report_data['findings']}</p>
+                <p><strong>Confidence Score:</strong> {st.session_state.report_data['confidence']}</p>
                 <p><strong>Risk Score:</strong> {st.session_state.report_data['risk_score']}</p>
-                <p><strong>Processing:</strong> {st.session_state.report_data['processing_time']}</p>
+                <p><strong>Processing Time:</strong> {st.session_state.report_data['processing_time']}</p>
             </div>
             """, unsafe_allow_html=True)
 
