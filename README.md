@@ -1,6 +1,4 @@
-## Project Title
-
-🫁 PulmoVista v1.0, AI-Powered Medical Imaging Diagnostics for Lung Conditions
+## 🫁 PulmoVista v1.0, AI-Powered Medical Imaging Diagnostics for Lung Conditions
 
 ## 🚀 Overview
 
