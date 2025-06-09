@@ -4,8 +4,6 @@
 
 ## 🚀 Overview
 
-Brief description of what your project does and why it exists.
-
 PulmoVista is a Streamlit web application deployed on Streamlit Cloud that detects lung abnormalities from DICOM images using 
 a YOLOv10 trained model and Machine learning ensemble models for feature engineering and classification on medical imaging data.
 
@@ -45,7 +43,8 @@ a YOLOv10 trained model and Machine learning ensemble models for feature enginee
 
 https://diagnosticsdiagnointelliegentsystems-m7lwvt4hxbsnhlsnzrgrxn.streamlit.app/
 
-## 3. Steps for Analysis
+3. Steps for Analysis
+   
    a) click browse files to upload Dicom Xray image
    
    b) Once image loaded, click 'Analyze Image' for image analysis and prediction
