@@ -32,7 +32,7 @@ a YOLOv10 trained model and Machine learning ensemble models for feature enginee
 
 ## 🔧 Installation
 
-1. Clone the repository to download the project files
+1. Clone the repository to download and view the project files
    
    git clone https://github.com/diagno-intelligent/Diagnostics_Diagno_Intelliegent_Systems.git
 
