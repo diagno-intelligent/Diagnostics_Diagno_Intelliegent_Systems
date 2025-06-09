@@ -1,6 +1,6 @@
 ## Project Title
 
-🫁 PulmoVista V1.0, AI-Powered Medical Imaging Diagnostics for Lung Conditions
+🫁 PulmoVista v1.0, AI-Powered Medical Imaging Diagnostics for Lung Conditions
 
 ## 🚀 Overview
 
@@ -12,15 +12,25 @@ a YOLOv10 trained model and Machine learning ensemble models for feature enginee
 ## 📁 Project Structure
 
 ├── Single_page_file_pil.py # main script Streamlit app
+
 ├── yolo_5cl.py # Yolov10 model for 5 class detection
+
 ├──best.py # Best model for yolo10
+
 ├── input_feature_unlabeled.csv # contains features extracted from the yolov10 model
+
 ├──feature_extraction.py # script for extracting best features from Deep Learning model using various feature selection algorithms
+
 ├── selected_models/ # This folder contains all the machine learning models used for ensembling
+
 ├── ens_modelling_5m_test.py # script for ensembling machine learning models
+
 ├── stacked_ensemble_model_ML_5m_cl_F.pkl # Combined model of Yolov10 + ensembled ML models
+
 ├── selected_models/ # This folder contains sample images for testing
+
 ├── requirements.txt # Required packages
+
 └── README.md # Project documentation
 
 
