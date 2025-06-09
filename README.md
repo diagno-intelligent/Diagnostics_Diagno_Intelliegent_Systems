@@ -13,9 +13,9 @@ a YOLOv10 trained model and Machine learning ensemble models for feature enginee
 
 ├──best.py    # Best model for yolo10
 
-├── input_feature_unlabeled.csv    &nbsp;&nbsp;&nbsp;&nbsp;# contains features extracted from the yolov10 model
+├── input_feature_unlabeled.csv    &nbsp;&nbsp;&nbsp;&nbsp; # contains features extracted from the yolov10 model
 
-├──feature_extraction.py    &nbsp;&nbsp;&nbsp;&nbsp;# script for extracting best features from Deep Learning model using various ML feature selection algorithms
+├──feature_extraction.py    &nbsp;&nbsp;&nbsp;&nbsp; # script for extracting best features from Deep Learning model using various ML feature selection algorithms
 
 ├── selected_models/    &nbsp;&nbsp;&nbsp;&nbsp;# This folder contains all the machine learning models used for ensembling
 
