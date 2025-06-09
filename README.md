@@ -37,12 +37,19 @@ https://diagnosticsdiagnointelliegentsystems-m7lwvt4hxbsnhlsnzrgrxn.streamlit.ap
 
 ## 3. Steps for Analysis
    a) click browse files to upload Dicom Xray image
+   
    b) Once image loaded, click 'Analyze Image' for image analysis and prediction
+   
    c) The progress bar in the 'Analysis Image" section indicates the status of image processing
+   
    d) Once the status is "finalizing the results", the Xray image with predicted class will be displayed
+   
    e) 'View Report' displays the report 
+   
    f) Download button displays a "Download Report button" which when clicked downloads the report
+   
    e) 'New Analysis' clears the output section and new image analysis can be done again
+   
 
 ## Acknowledgments
 
