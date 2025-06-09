@@ -62,7 +62,7 @@ https://diagnosticsdiagnointelliegentsystems-m7lwvt4hxbsnhlsnzrgrxn.streamlit.ap
 
 Telangana Challenge Team for providing DICOM Chest Xray image dataset annotated with bounding boxes for 5 lung conditions
  
-Open-source contributors - Ultralytics YOLO
+Open-source contributors - Ultralytics YOLO, DETR VIT, EfficientNet5, scikit-learn models
 
 
 
