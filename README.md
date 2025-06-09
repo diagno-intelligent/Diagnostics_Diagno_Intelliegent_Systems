@@ -1,4 +1,4 @@
-# Project Title
+## Project Title
 
 🫁 PulmoVista V1.0, AI-Powered Medical Imaging Diagnostics for Lung Conditions
 
@@ -30,12 +30,12 @@ a YOLOv10 trained model and Machine learning ensemble models for feature enginee
    
    git clone https://github.com/diagno-intelligent/Diagnostics_Diagno_Intelliegent_Systems.git
 
-2. 💻 Usage
-Click the Streamlit link given below to run the project
+## 💻 Usage
+2. Click the Streamlit link given below to run the project
 
 https://diagnosticsdiagnointelliegentsystems-m7lwvt4hxbsnhlsnzrgrxn.streamlit.app/
 
-3. Steps for Analysis
+## 3. Steps for Analysis
    a) click browse files to upload Dicom Xray image
    b) Once image loaded, click 'Analyze Image' for image analysis and prediction
    c) The progress bar in the 'Analysis Image" section indicates the status of image processing
